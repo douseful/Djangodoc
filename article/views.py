@@ -8,6 +8,7 @@ from django.db.models import Q
 from .models import ArticlePost
 from .forms import ArticlePostForm
 from comment.models import Comment
+from comment.forms import CommentForm
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 
@@ -71,6 +72,7 @@ def article_list(request):
 
 def article_detail(request, id):
     article = ArticlePost.objects.get(id=id)
+    comment_form = CommentForm()
     # filter could get multi objects, while get will only get one
     comments = Comment.objects.filter(article=id)
 
@@ -90,7 +92,8 @@ def article_detail(request, id):
 
     article.body = md.convert(article.body)
 
-    context = {'article': article, 'toc': md.toc, 'comments': comments}
+    context = {'article': article, 'toc': md.toc, 'comments': comments,
+               'comment_form': comment_form}
     return render(request, 'article/detail.html', context)
 
 

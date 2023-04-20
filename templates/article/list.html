@@ -163,14 +163,17 @@
           {#        注脚#}
           <p>
             {#          附加信息#}
-            <span style="color: blue">
-            {{ article.total_views }} 浏览
+            <span>
+             <i class="fa-sharp fa-solid fa-clock-rotate-left"></i>&nbsp;
+            {{ article.total_views }}&nbsp;&nbsp;&nbsp;
           </span>
-            <span style="color: green">
-            {{ article.created|date:'Y-m-d' }} 发布
+            <span>
+             <i class="fa-regular fa-comment"></i>&nbsp;
+            {{ article.comments.count }}&nbsp;&nbsp;&nbsp;
           </span>
-            <span style="color: darkgrey">
-            {{ article.updated|date:'Y-m-d' }} 更新
+            <span>
+             <i class="fa-sharp fa-regular fa-clock"></i>&nbsp;
+            {{ article.updated|date:'Y-m-d' }}
           </span>
 
           </p>
