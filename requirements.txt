@@ -4,3 +4,4 @@ Pillow~=9.5.0
 django-taggit
 django-ckeditor~=6.5.1
 django-mptt~=0.14.0
+django-notifications-hq~=1.7.0

@@ -97,7 +97,7 @@ def article_detail(request, id):
     return render(request, 'article/detail.html', context)
 
 
-@login_required(login_url='/userprofile/login/')
+@login_required(login_url='/accounts/login/')
 # @login_required(login_url=reverse('userprofile:login'))
 def article_create(request):
     if request.method == "POST":

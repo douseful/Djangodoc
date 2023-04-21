@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+
 # from django.db.models import BigAutoField
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,8 +43,19 @@ INSTALLED_APPS = [
     'comment',
     'taggit',
     'ckeditor',
-    'mptt'
+    'mptt',
+    'notifications',
+    # allauth 启动必须项
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.weibo',
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,6 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 启动 身份认证所需 allauth
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -106,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -114,7 +128,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -133,8 +147,8 @@ CKEDITOR_CONFIGS = {
     # django-ckeditor默认使用default配置
     'default': {
         # 编辑器宽度自适应
-        'width':'auto',
-        'height':'250px',
+        'width': 'auto',
+        'height': '250px',
         # tab键转换空格数
         'tabSpaces': 4,
         # 工具栏风格
@@ -158,3 +172,11 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join(['codesnippet']),
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    # Django 后台可独立于 allauth 登录
+    'django.contrib.auth.backends.ModelBackend',
+
+    # 配置 allauth 独有的认证方法，如 email 登录
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
